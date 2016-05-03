@@ -1,19 +1,22 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 // import {Contact} from './models/contact';
 // import {CONTACT_DATA} from './data/contact-data';
-// import {ContactHeaderComponent} from './contact-header-component/contact-header-component';
+import {ContactHeaderComponent} from './contact-header-component/contact-header-component';
 import {ContactsListComponent} from './contacts-list-component/contacts-list-component';
-// import {ContactsService} from './contacts-service/contacts-service';
+import {ContactDetailComponent} from './contact-detail-component/contact-detail-component';
+import {ContactsService} from './contacts-service/contacts-service';
 import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
 import {RouteConfig} from 'angular2/router';
 
 @Component ({
   selector: 'contacts-app',
   styleUrls: ['app/contacts-app.css'],
-  directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
-  providers: [ROUTER_PROVIDERS],
-  template: `<router-outlet></router-outlet>`
+  directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES, ContactHeaderComponent],
+  providers: [ROUTER_PROVIDERS, ContactsService],
+  template: `
+    <contact-header-component></contact-header-component>
+    <router-outlet></router-outlet>` //make sure you register the ROUTER_DIRECTIVES so you can use router-outlet
   // directives: [ContactHeaderComponent, CORE_DIRECTIVES],
   // providers: [ContactsService, ROUTER_PROVIDERS], //for @Injectables
   // template: `
@@ -33,6 +36,11 @@ import {RouteConfig} from 'angular2/router';
     path: '/',
     component: ContactsListComponent,
     name: 'ContactsList'
+  },
+  {
+    path: '/contact/:id',
+    component: ContactDetailComponent,
+    name: 'ContactDetail'
   }
 ])
 

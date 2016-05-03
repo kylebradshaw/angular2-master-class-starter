@@ -4,19 +4,21 @@ import {Contact} from '../models/contact';
 import {CONTACT_DATA} from '../data/contact-data';
 import {ContactHeaderComponent} from '../contact-header-component/contact-header-component';
 import {ContactsService} from '../contacts-service/contacts-service';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
+// import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, RouteConfig} from 'angular2/router';
 
 @Component ({
   selector: 'contacts-list-component',
   styleUrls: ['app/contacts-list-component/contacts-list-component.css'],
-  directives: [ContactHeaderComponent, CORE_DIRECTIVES],
-  providers: [ContactsService], //for @Injectables
+  directives: [ContactHeaderComponent, CORE_DIRECTIVES, ROUTER_DIRECTIVES],
+  // providers: [ContactsService, ROUTER_PROVIDERS], //for @Injectables //don't double it
   template: `
-    <contact-header-component></contact-header-component>
     <ul class="collection">
       <li *ngFor="#contact of contacts; #i = index" class="collection-item avatar">
-        {{i}}
+      <a [routerLink]="['/ContactDetail', {id: contact.id}]">
         <img [src]="contact.image" alt="" class="circle">
         <span class="title">{{contact.name}}</span>
+      </a>
       </li>
     </ul>
   `
@@ -24,7 +26,7 @@ import {ContactsService} from '../contacts-service/contacts-service';
 
 // @RouteConfig ([
 //   {
-//     path: '/',
+//     path: '/ContactDetail',
 //     component: ContactsListComponent,
 //     name: 'ContactList'
 //   }
