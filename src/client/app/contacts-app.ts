@@ -1,15 +1,18 @@
 import {Component} from 'angular2/core';
+import {CORE_DIRECTIVES} from 'angular2/common';
 import {Contact} from './models/contact';
+import {CONTACT_DATA} from './data/contact-data';
 import {ContactHeaderComponent} from './contact-header-component/contact-header-component';
 
 @Component ({
   selector: 'contacts-app',
   styleUrls: ['app/contacts-app.css'],
-  directives: [ContactHeaderComponent],
+  directives: [ContactHeaderComponent, CORE_DIRECTIVES],
   template: `
     <contact-header-component></contact-header-component>
     <ul class="collection">
-      <li class="collection-item avatar">
+      <li *ngFor="#contact of contacts" class="collection-item avatar">
+        {{index}}
         <img [src]="contact.image" alt="" class="circle">
         <span class="title">{{contact.name}}</span>
       </li>
@@ -20,20 +23,27 @@ import {ContactHeaderComponent} from './contact-header-component/contact-header-
 export class ContactsApp {
 
   //contact property of type Contact with data {}
-  contact:Contact = {
-    id: 7,
-    name: 'Diana Ellis',
-    email: '',
-    phone: '',
-    birthday: '',
-    website: '',
-    image: '/assets/images/7.jpg',
+  // public contacts:Contact[] = CONTACT_DATA;
+  public contacts:Array<Contact> = CONTACT_DATA;
+  public contact:Contact = {
+    id: 1,
+    name: 'Pascal Precht',
+    email: 'pascal@thoughtram.io',
+    phone: '+49 000 222',
+    birthday: '1991-03-31',
+    website: 'thoughtram.io',
+    image: '/assets/images/1.jpg',
     address: {
-      street: '6554 park lane',
-      zip: '43378',
-      city: 'Rush',
-      country: 'United States'
+      street: 'thoughtram road 1',
+      zip: '65222',
+      city: 'Hanover',
+      country: 'Germany'
     }
   };
   
 }
+
+      // <li class="collection-item avatar">
+      //   <img [src]="contact.image" alt="" class="circle">
+      //   <span class="title">{{contact.name}}</span>
+      // </li>
