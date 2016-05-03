@@ -11,8 +11,8 @@ import {ContactHeaderComponent} from './contact-header-component/contact-header-
   template: `
     <contact-header-component></contact-header-component>
     <ul class="collection">
-      <li *ngFor="#contact of contacts" class="collection-item avatar">
-        {{index}}
+      <li *ngFor="#contact of contacts; #i = index" class="collection-item avatar">
+        {{i}}
         <img [src]="contact.image" alt="" class="circle">
         <span class="title">{{contact.name}}</span>
       </li>
